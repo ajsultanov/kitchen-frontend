@@ -14,9 +14,12 @@ export default function RecipeTable(props) {
                 </tr>
             </thead>
             <tbody>
-                {props.results.map((result, idx) => (
-                    <RecipeRow  result={result}/>
-                ))}
+                {props.results.length > 0 ?
+                    props.results.map((result, idx) => (
+                    <RecipeRow  key={idx} result={result}/>
+                )) :
+                <tr><td>No results for this search</td></tr>
+                }
             </tbody>
         </table>
     )
