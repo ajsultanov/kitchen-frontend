@@ -7,14 +7,7 @@ export default class SearchTable extends Component {
     constructor () {
         super()
         this.state = {
-            results: [
-                {
-                    image: 'https://spoonacular.com/cdn/ingredients_100x100/apple.jpg',
-                    name: 'Marinara Sauce',
-                    time: '30',
-                    servings: '4',
-                }
-            ],
+            results: [],
             searchTerm: '',
         }
         this.handleChange = this.handleChange.bind(this)
@@ -48,10 +41,8 @@ export default class SearchTable extends Component {
     render() {
         return (
             <Grid centered columns={16} className='search-table'>
-                
-                    <SearchBar searchTerm={this.state.searchTerm} onChange={this.handleChange} onSubmit={this.handleSubmit}/>
-                    <RecipeTable results={this.state.results}/>
-                
+                <SearchBar searchTerm={this.state.searchTerm} onChange={this.handleChange} onSubmit={this.handleSubmit}/>
+                <RecipeTable results={this.state.results}/>
             </Grid>
         )
     }

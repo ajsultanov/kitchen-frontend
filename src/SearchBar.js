@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Button, Grid } from 'semantic-ui-react';
+import { Button, Form, Grid, Input } from 'semantic-ui-react';
 
 export default function SearchBar(props) {
 

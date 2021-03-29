@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import { Card, Icon, Image } from 'semantic-ui-react';
 
 export default class Recipe extends Component {
     
     componentDidMount() {
         let id = 1
 
-        fetch(`http://localhost:3030/api/v1/recipe/${id}`, {
+        fetch(`http://localhost:3030/api/v1/recipes/${id}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -13,12 +14,22 @@ export default class Recipe extends Component {
             },
         })
         .then(response => response.json())
-        .then(console.log())
+        .then(data => console.log(data))
     }
 
     render() {
         return (
-            <p>Recip go her</p>
+            <Card>
+                <Image/>
+                <Card.Content>
+                    <Card.Header></Card.Header>
+                    <Card.Meta></Card.Meta>
+                </Card.Content>
+                <Card.Content extra>
+                    <Icon name='clock outline'/>minutes
+                    <Icon name='food'/>servings
+                </Card.Content>
+            </Card>
         )
     }
 }

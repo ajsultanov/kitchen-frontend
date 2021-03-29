@@ -7,14 +7,14 @@ export default function RecipeTable(props) {
     return (
         <Grid.Row>
             <Grid.Column width={14}>
-            <Table >
+            <Table unstackable singleLine>
                 <Table.Header>
                     <Table.Row>
-                        <Table.HeaderCell>Image</Table.HeaderCell>
+                        <Table.HeaderCell width={1}>Image</Table.HeaderCell>
                         <Table.HeaderCell>Name</Table.HeaderCell>
-                        <Table.HeaderCell>Time</Table.HeaderCell>
-                        <Table.HeaderCell>Servings</Table.HeaderCell>
-                        <Table.HeaderCell></Table.HeaderCell>
+                        <Table.HeaderCell width={3}>Time</Table.HeaderCell>
+                        <Table.HeaderCell width={2}>Servings</Table.HeaderCell>
+                        <Table.HeaderCell width={1}></Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>
