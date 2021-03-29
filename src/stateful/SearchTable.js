@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import SearchBar from './SearchBar.js';
-import RecipeTable from './RecipeTable.js'
+import { Grid } from 'semantic-ui-react';
+import SearchBar from '../SearchBar.js';
+import RecipeTable from '../RecipeTable.js'
 
 export default class SearchTable extends Component {
     constructor () {
@@ -8,9 +9,9 @@ export default class SearchTable extends Component {
         this.state = {
             results: [
                 {
-                    image: 'https://webknox.com/recipeImages/716429-556x370.jpg',
+                    image: 'https://spoonacular.com/cdn/ingredients_100x100/apple.jpg',
                     name: 'Marinara Sauce',
-                    time: '30 minutes',
+                    time: '30',
                     servings: '4',
                 }
             ],
@@ -28,6 +29,9 @@ export default class SearchTable extends Component {
         console.log('Search term: ' + this.state.searchTerm);
         e.preventDefault()
 
+        // this submit can come from the search bar, or adding a recipe
+
+
         fetch(`http://localhost:3030/api/v1/search/${this.state.searchTerm}`, {
             method: 'GET',
             headers: {
@@ -43,10 +47,12 @@ export default class SearchTable extends Component {
 
     render() {
         return (
-            <div className="search-table">
-                <SearchBar searchTerm={this.state.searchTerm} onChange={this.handleChange} onSubmit={this.handleSubmit}/>
-                <RecipeTable results={this.state.results}/>
-            </div>
+            <Grid centered columns={16} className='search-table'>
+                
+                    <SearchBar searchTerm={this.state.searchTerm} onChange={this.handleChange} onSubmit={this.handleSubmit}/>
+                    <RecipeTable results={this.state.results}/>
+                
+            </Grid>
         )
     }
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Table, Button, Image } from 'semantic-ui-react';
 
 export default function RecipeRow(props) {
 
@@ -15,7 +16,7 @@ export default function RecipeRow(props) {
 
     function nameShortener() {
         const name = props.result.name
-        return name.length > 30 ? name.slice(0, 27) + "..." : name
+        return name.length > 40 ? name.slice(0, 37) + "..." : name
     }
 
     function addDefaultSrc(e) {
@@ -23,11 +24,14 @@ export default function RecipeRow(props) {
     }
 
     return (
-        <tr>
-            <td><img className="row-image" src={'https://spoonacular.com/recipeImages/' + props.result.image} alt={props.result.name} onError={addDefaultSrc}/></td>
-            <td>{nameShortener()}</td>
-            <td>{timeConvert()}</td>
-            <td>{props.result.servings}</td>
-        </tr>
+        <Table.Row>
+            <Table.Cell><Image rounded className="row-image" src={'https://spoonacular.com/recipeImages/' + props.result.image} alt={props.result.name} onError={addDefaultSrc}/></Table.Cell>
+            <Table.Cell>{nameShortener()}</Table.Cell>
+            <Table.Cell>{timeConvert()}</Table.Cell>
+            <Table.Cell>{props.result.servings}</Table.Cell>
+            <Table.Cell>
+                <Button>Add</Button>
+            </Table.Cell>
+        </Table.Row>
     )
 }
