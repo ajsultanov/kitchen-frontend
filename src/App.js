@@ -1,5 +1,7 @@
 import './App.css';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
 import AppMenu from './AppMenu.js';
 import Login from './stateful/Login.js';
 import Profile from './stateful/Profile.js';
@@ -8,15 +10,34 @@ import CreateRecipe from './stateful/CreateRecipe.js';
 
 function App() {
 
+  const [currentUser, setCurrentUser] = useState(null)
+  const history = createBrowserHistory()
+
   return (
     <Router>
-      <div className="App">
-        <AppMenu/>
-        <Route exact path="/login" component={Login}/>
-        <Route exact path="/" component={Profile}/>
-        <Route exact path="/search" component={SearchTable}/>
-        <Route exact path="/create-recipe" render={routerProps => <CreateRecipe {...routerProps} movies={["Saw", "CTHD"]}/> }/>
-      </div>
+      <AppMenu currentUser={currentUser} setCurrentUser={setCurrentUser} history={history}/>
+      <Switch>
+        <Route path='/login'>
+          {currentUser ?
+            <Redirect to='/'/> 
+          :
+            <Login setCurrentUser={setCurrentUser} history={history}/>
+          }
+        </Route>
+        <Route exact path='/'>
+          {currentUser ?
+            <Profile currentUser={currentUser}/> 
+          :
+            <Redirect to='/login'/>
+          }
+        </Route>
+        <Route path='/search'>
+          <SearchTable currentUser={currentUser}/>
+        </Route>
+        <Route path='/create-recipe'>
+          <CreateRecipe currentUser={currentUser}/>
+        </Route>
+      </Switch>
     </Router>
   );
 }

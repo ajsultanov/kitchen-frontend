@@ -1,30 +1,21 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import Recipe from './Recipe.js'
+import React from 'react';
+import ListList from '../ListList.js'
+// import RecipeList from '../RecipeList.js'
 
-export default class Profile extends Component {
+function Profile(props) {
 
-    componentDidMount() {
-        let id = 1
+    const user = props.currentUser
+    console.log(user)
 
-        fetch(`http://localhost:3030/api/v1/users/${id}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-        })
-        .then(response => response.json())
-        .then(data => console.log(data))
-    }
+    return (
+        <div>
+            <p>User ID: {user.id}, Username: {user.name}</p>
+            
+            <ListList user={user}/>
+            {/* <RecipeList/> */}
+        </div>
+    )
     
-    render() {
-        return (
-            <div>
-                <p>Profil go her</p>
-                <Link to="/">Link</Link>
-                <Recipe/>
-            </div>
-        )
-    }
 }
+
+export default Profile;
