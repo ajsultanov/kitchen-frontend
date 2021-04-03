@@ -26,7 +26,7 @@ function ListList(props) {
     return (
         <Container>
             <Header as='h2'>Lists:</Header>
-            <Grid >
+            {/* <Grid >
                 {lists.map(l => (
                     <Grid.Row key={l.id}>
                         <Grid.Column>
@@ -38,9 +38,9 @@ function ListList(props) {
                             {l.description}
                         </Container>
                         <List>
-                            {/* {recipes.map(r => (
+                            {recipes.map(r => (
                                 <List.Item key={r.id}>{r.name}</List.Item>
-                            ))} */}
+                            ))}
                             <List.Item>
                                 - Ask API for ListRecipes, 
                             </List.Item>
@@ -57,7 +57,7 @@ function ListList(props) {
                         </Grid.Column>
                     </Grid.Row>
                 ))}
-            </Grid>
+            </Grid> */}
         </Container>
     )
 }
