@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 import AppMenu from './AppMenu.js';
@@ -12,6 +12,27 @@ function App() {
 
   const [currentUser, setCurrentUser] = useState(null)
   const history = createBrowserHistory()
+  const token = localStorage.getItem("user_token")
+
+  useEffect(() => {
+    if(token) {
+      fetch("http://localhost:3030/api/v1/auto_login", {
+        headers: {
+          "Authorization": token
+        }
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.errors) {
+          localStorage.removeItem("user_token")
+          alert(data.errors)
+        }else {
+          setCurrentUser(data)
+        }
+      })
+    }
+  }, [token])
+
 
   return (
     <Router>

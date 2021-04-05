@@ -67,7 +67,8 @@ export default class Login extends Component {
             if (data.message) {
                 window.alert(data.message)
             } else {
-                document.cookie = `kitchen_token=${data.jwt}`
+                console.log(data);
+                localStorage.setItem("user_token", data.jwt)
                 this.props.setCurrentUser(data.user)
             }
         })
@@ -92,7 +93,7 @@ export default class Login extends Component {
             if (data.message) {
                 window.alert(data.message)
             } else {
-                document.cookie = `kitchen_token=${data.jwt}`
+                localStorage.setItem("user_token", data.jwt)
                 this.props.setCurrentUser(data.user)
             }
         })

@@ -3,23 +3,25 @@ import { Container, Grid, Header, List } from 'semantic-ui-react';
 
 function ListList(props) {
 
+    // a list of lists (inside profile)
+
     const lists = props.user.lists
-    // console.log(lists);
+    console.log(lists);
 
-    // const [recipes] = useState(
-    //     lists.map(l =>
-    //         fetch(`http://localhost:3030/api/v1/lists/${l.id}/recipes`, {
-    //             method: 'GET',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //                 'Accept': 'application/json'
-    //             }
-    //         })
-    //         .then(resp => resp.json())
-    //         .then(data => data)
+    const [recipes] = useState(
+        lists.map(l =>
+            fetch(`http://localhost:3030/api/v1/lists/${l.id}/recipes`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            })
+            .then(resp => resp.json())
+            .then(data => data)
 
-    //     )
-    // )
+        )
+    )
 
     
 

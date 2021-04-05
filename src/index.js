@@ -6,9 +6,12 @@ import reportWebVitals from './reportWebVitals';
 import 'semantic-ui-css/semantic.min.css';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+      // commented out until Semantic fixes it's findDOMNode issue
+      // which clutters the terminal
+  // <React.StrictMode> 
+  //   <App />
+  // </React.StrictMode>,
+  <App />,
   document.getElementById('root')
 );
 

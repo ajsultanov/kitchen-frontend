@@ -8,10 +8,9 @@ function AppMenu(props) {
 
     const handleClick = (e, { name }) => setActiveItem({name})
 
-    const handleLogout = () => { 
-        document.cookie='kitchen_token='
+    const handleLogout = (e) => { 
+        localStorage.removeItem("user_token")
         props.setCurrentUser(null)
-        setActiveItem('login')
     }
 
     return (

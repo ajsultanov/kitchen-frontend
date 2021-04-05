@@ -3,6 +3,8 @@ import { Card, Icon, Image, Segment} from 'semantic-ui-react';
 
 export default function RecipeList(props) {
 
+    // a list of recipes (inside a list)
+
     // props.recipes.map(r => (
     return (
         <Card>
