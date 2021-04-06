@@ -9,14 +9,18 @@ function AppMenu(props) {
     const handleClick = (e, { name }) => setActiveItem({name})
 
     const handleLogout = (e) => { 
-        localStorage.removeItem("user_token")
+        localStorage.removeItem('user_token')
         props.setCurrentUser(null)
     }
 
     return (
         <Menu borderless>
             <Menu.Item>
-                <Image rounded size='mini' src='https://images.unsplash.com/photo-1453060590797-2d5f419b54cb?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2100&q=80'/>
+                <Image 
+                    rounded 
+                    size='mini' 
+                    src='https://images.unsplash.com/photo-1453060590797-2d5f419b54cb?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2100&q=80'
+                />
             </Menu.Item>
             <Menu.Item header>
                 <Header>
@@ -76,13 +80,9 @@ function AppMenu(props) {
                         Log In
                     </Menu.Item>
                 }
-                
-
-
             </Menu.Menu>
         </Menu>
     )
-    
 }
 
 export default AppMenu;

@@ -1,6 +1,5 @@
 import React from 'react';
 import ListList from '../ListList.js'
-import RecipeList from '../RecipeList.js'
 
 function Profile(props) {
 
@@ -12,7 +11,6 @@ function Profile(props) {
             <p>User ID: {user.id}, Username: {user.name}</p>
             
             <ListList user={user}/>
-            <RecipeList/>
         </div>
     )
     

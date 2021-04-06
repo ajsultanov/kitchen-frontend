@@ -1,17 +1,18 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
-import { createBrowserHistory } from 'history';
 import AppMenu from './AppMenu.js';
-import Login from './stateful/Login.js';
+import Login from './Login.js';
 import Profile from './stateful/Profile.js';
 import SearchTable from './stateful/SearchTable.js';
 import CreateRecipe from './stateful/CreateRecipe.js';
+import RecipeList from './RecipeList.js'
+import Recipe from './stateful/Recipe.js'
+import NoMatch from './NoMatch.js'
 
 function App() {
 
   const [currentUser, setCurrentUser] = useState(null)
-  const history = createBrowserHistory()
   const token = localStorage.getItem("user_token")
 
   useEffect(() => {
@@ -26,7 +27,7 @@ function App() {
         if (data.errors) {
           localStorage.removeItem("user_token")
           alert(data.errors)
-        }else {
+        } else {
           setCurrentUser(data)
         }
       })
@@ -36,13 +37,13 @@ function App() {
 
   return (
     <Router>
-      <AppMenu currentUser={currentUser} setCurrentUser={setCurrentUser} history={history}/>
+      <AppMenu currentUser={currentUser} setCurrentUser={setCurrentUser}/>
       <Switch>
         <Route path='/login'>
           {currentUser ?
             <Redirect to='/'/> 
           :
-            <Login setCurrentUser={setCurrentUser} history={history}/>
+            <Login setCurrentUser={setCurrentUser}/>
           }
         </Route>
         <Route exact path='/'>
@@ -58,6 +59,15 @@ function App() {
         <Route path='/create-recipe'>
           <CreateRecipe currentUser={currentUser}/>
         </Route>
+
+        <Route path='/lists/:id'>
+          <RecipeList currentUser={currentUser}/>
+        </Route>
+        <Route path='/recipes/:id'>
+          <Recipe currentUser={currentUser}/>
+        </Route>
+
+        <Route component={NoMatch}/>
       </Switch>
     </Router>
   );
