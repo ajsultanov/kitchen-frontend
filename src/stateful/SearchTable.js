@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid } from 'semantic-ui-react';
+import { Grid, Segment } from 'semantic-ui-react';
 import SearchBar from '../SearchBar.js';
 import RecipeTable from '../RecipeTable.js'
 
@@ -8,6 +8,7 @@ export default class SearchTable extends Component {
         super()
         this.state = {
             results: [],
+            total: null,
             searchTerm: '',
         }
         this.handleChange = this.handleChange.bind(this)
@@ -34,7 +35,11 @@ export default class SearchTable extends Component {
         })
         .then(response => response.json())
         .then(data => (
-            this.setState({results: data})
+            this.setState({
+                results: data.results,
+                total: data.total
+
+            })
         ))
     }
 
@@ -43,6 +48,16 @@ export default class SearchTable extends Component {
             <Grid centered columns={16} className='search-table'>
                 <SearchBar searchTerm={this.state.searchTerm} onChange={this.handleChange} onSubmit={this.handleSubmit}/>
                 <RecipeTable results={this.state.results}/>
+                {
+                    this.state.total
+                ?
+                    <Segment>
+                        total results: {this.state.total}
+                    </Segment>
+                :
+                    <div/>
+                }
+                
             </Grid>
         )
     }

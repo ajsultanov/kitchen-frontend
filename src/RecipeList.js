@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Link, Redirect, useHistory, useLocation, useParams } from 'react-router-dom';
-import { Card, Container, Header, Icon, Image, Segment} from 'semantic-ui-react';
+import { Link, useLocation, useParams } from 'react-router-dom';
+import { Breadcrumb, Card, Container, Divider, Header, Icon, Image, Segment} from 'semantic-ui-react';
 import { timeConvert, shortener } from './helpers';
 
 export default function RecipeList(props) {
@@ -15,8 +15,6 @@ export default function RecipeList(props) {
     const user = props.currentUser
     
     const location = useLocation()
-    const history = useHistory()
-
 
     useEffect(() => {
         if (user && list === null) {
@@ -41,7 +39,7 @@ export default function RecipeList(props) {
     })
 
     if (list === null) {
-        return <p>loadin</p>
+        return <div/>
     } else if (list.recipes.length === 0) {
         return (
             <Container>
@@ -56,7 +54,16 @@ export default function RecipeList(props) {
 
     return (
         <Container>
-            <Link to='/'>Back to Lists</Link>
+            <Breadcrumb>
+                <Breadcrumb.Section as={Link} to='/'>
+                    Home
+                </Breadcrumb.Section>
+                <Breadcrumb.Divider />
+                <Breadcrumb.Section active>
+                    {list.name}
+                </Breadcrumb.Section>
+            </Breadcrumb>
+            <Divider/>
             <Header>{list.name}</Header>
             <Card.Group>
                 {list.recipes.map(r => (
@@ -64,10 +71,16 @@ export default function RecipeList(props) {
                         key={r.id}
                         to={{
                             pathname: `/recipes/${r.id}`,
-                            state: { fromLocation: location}
+                            state: { 
+                                fromLocation: location,
+                                name: list.name
+                             }
                         }}
                     >
-                        <Image/>
+                        <Image 
+                            size='tiny' 
+                            src='https://images.unsplash.com/photo-1572441713132-c542fc4fe282?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2200&q=80'
+                        />
                         <Card.Content>
                             <Card.Header>{r.name}</Card.Header>
                             <Card.Meta>{shortener(r.description, 118)}</Card.Meta>

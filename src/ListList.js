@@ -7,12 +7,16 @@ function ListList(props) {
     const lists = props.user.lists
 
     if (lists === undefined) {
-        return <p>loadin</p>
+        return <div/>
     } else if (lists.length === 0) {
         return (
-            <Container>
-                create a new list...
-            </Container>
+            <Card.Group>
+                <Card
+                    href='/create-list'
+                >
+                    create a new list...
+                </Card>
+            </Card.Group>
         )
     }
 
@@ -41,6 +45,11 @@ function ListList(props) {
                         </Card.Content>
                     </Card>
                 ))}
+                <Card
+                    href='/create-list'
+                >
+                    Create a new list
+                </Card>
             </Card.Group>
         </Container>
     )
