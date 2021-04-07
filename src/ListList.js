@@ -1,21 +1,19 @@
 import React from 'react';
-import { Card, Container, Header } from 'semantic-ui-react';
+import { Card, Container, Divider, Header, Segment } from 'semantic-ui-react';
+import CreateList from './stateful/CreateList.js'
 
 function ListList(props) {
     // a list of lists (inside profile)
 
     const lists = props.user.lists
+    lists.sort((a, b) => b.id - a.id)
 
     if (lists === undefined) {
         return <div/>
     } else if (lists.length === 0) {
         return (
             <Card.Group>
-                <Card
-                    href='/create-list'
-                >
-                    create a new list...
-                </Card>
+                <CreateList/>
             </Card.Group>
         )
     }
@@ -45,12 +43,9 @@ function ListList(props) {
                         </Card.Content>
                     </Card>
                 ))}
-                <Card
-                    href='/create-list'
-                >
-                    Create a new list
-                </Card>
             </Card.Group>
+            <Divider/>
+            <CreateList userId={props.user.id}/>
         </Container>
     )
 }

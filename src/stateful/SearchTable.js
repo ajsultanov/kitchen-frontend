@@ -10,6 +10,7 @@ export default class SearchTable extends Component {
             results: [],
             total: null,
             searchTerm: '',
+            submitted: false
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -24,7 +25,7 @@ export default class SearchTable extends Component {
         e.preventDefault()
 
         // this submit can come from the search bar, or adding a recipe
-
+        
 
         fetch(`http://localhost:3030/api/v1/search/${this.state.searchTerm}`, {
             method: 'GET',
@@ -37,8 +38,8 @@ export default class SearchTable extends Component {
         .then(data => (
             this.setState({
                 results: data.results,
-                total: data.total
-
+                total: data.total,
+                submitted: true
             })
         ))
     }
@@ -46,8 +47,18 @@ export default class SearchTable extends Component {
     render() {
         return (
             <Grid centered columns={16} className='search-table'>
-                <SearchBar searchTerm={this.state.searchTerm} onChange={this.handleChange} onSubmit={this.handleSubmit}/>
-                <RecipeTable results={this.state.results}/>
+                <SearchBar 
+                    searchTerm={this.state.searchTerm} 
+                    onChange={this.handleChange} 
+                    onSubmit={this.handleSubmit}
+                />
+                {
+                    this.state.submitted
+                ?
+                    <RecipeTable results={this.state.results}/>
+                :
+                    <div/>    
+                }
                 {
                     this.state.total
                 ?

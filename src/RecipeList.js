@@ -11,11 +11,15 @@ export default function RecipeList(props) {
     const [list, setList] = useState(null)
     const params = useParams()
     const id = params.id
-
-    const user = props.currentUser
-    
     const location = useLocation()
 
+
+    
+    const prevPage = location
+    console.log(prevPage)
+
+    const user = props.currentUser    
+    
     useEffect(() => {
         if (user && list === null) {
 
@@ -43,13 +47,25 @@ export default function RecipeList(props) {
     } else if (list.recipes.length === 0) {
         return (
             <Container>
-                <Link to='/'>Back to Lists</Link>
+                <Breadcrumb>
+                <Breadcrumb.Section as={Link} to='/'>
+                    Home
+                </Breadcrumb.Section>
+                <Breadcrumb.Divider />
+                <Breadcrumb.Section active>
+                    {list.name}
+                </Breadcrumb.Section>
+            </Breadcrumb>
                 <Header>{list.name}</Header>
-                create a new recipe...
+                No recipes yet! Why don't you&nbsp;
+                <Link to='/create-recipe'>
+                    create a new one...
+                </Link>
             </Container>
         )
     }
 
+    list.recipes.sort((a, b) => b.id - a.id)
     console.log(list);
 
     return (

@@ -3,7 +3,6 @@ import RecipeRow from './RecipeRow.js';
 import { Grid, Table } from 'semantic-ui-react';
 
 export default function RecipeTable(props) {
-    
     return (
         <Grid.Row>
             <Grid.Column width={14}>

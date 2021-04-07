@@ -10,7 +10,11 @@ function timeConvert(minutes) {
 }
 
 function shortener(text, length) {
-    return text.length > length ? text.slice(0, length - 3) + "..." : text
+    if (!!text) {
+        return text.length > length ? text.slice(0, length - 3) + "..." : text
+    } else {
+        return "No description"
+    }
 }
 
 export { timeConvert, shortener }

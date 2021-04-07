@@ -8,7 +8,14 @@ export default function SearchBar(props) {
             <Form onSubmit={props.onSubmit} id='search-bar'>
                 <Form.Field>
                     <label>Search</label>
-                    <Input type='text' size='big' value={props.searchTerm} onChange={props.onChange} placeholder='Search by keyword or ingredient...'/>
+                    <Input 
+                        icon='search'
+                        type='text' 
+                        size='big' 
+                        value={props.searchTerm} 
+                        onChange={props.onChange} 
+                        placeholder='Search by keyword or ingredient...'
+                    />
                 </Form.Field>
                 <Form.Field type='submit' fluid control={Button}>Search for Recipes</Form.Field>
             </Form>
