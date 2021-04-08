@@ -1,13 +1,46 @@
 import React, { useState } from 'react';
-import RecipeRow from './RecipeRow.js';
+import { useHistory } from 'react-router-dom';
 import { Grid, Table } from 'semantic-ui-react';
+import RecipeRow from './RecipeRow.js';
 
 export default function RecipeTable(props) {
 
-    const [listId, setListId] = useState(null)
+    // const [listId, setListId] = useState(null)
+    const history = useHistory()
 
-    const saveRecipe = (id, list) => {
-        console.log(id, list)
+    const saveRecipe = (recipe, listId) => {
+
+        fetch(`http://localhost:3030/api/v1/get_info/${recipe.id}`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            fetch('http://localhost:3030/api/v1/recipes', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    recipe: {
+                        name: data.name,
+                        description: data.description,
+                        author: '',
+                        cook_time: data.cook_time,
+                        servings: data.servings,
+                        ingredients: data.ingredients,
+                        steps: data.steps,
+                        url: data.url
+                    },
+                    list_id: listId
+                })
+            })
+        })
+
+        history.push('/lists/' + listId)
     }
 
     return (

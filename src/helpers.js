@@ -17,4 +17,16 @@ function shortener(text, length) {
     }
 }
 
-export { timeConvert, shortener }
+function createDescription(desc) {
+
+    // removes '<b>' and '</b>'
+    const noBold = desc.replace(/<.?b>/g, '')
+    // removes anything that's not a period, then '<a', 
+    // then everything after to the end of the string
+    const noLinks = noBold.replace(/[^.]+<a.*$/, '')
+
+    return {__html: noLinks}
+}
+
+
+export { timeConvert, shortener, createDescription }

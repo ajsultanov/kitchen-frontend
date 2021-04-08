@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { Breadcrumb, Card, Container, Divider, Header, Icon, Image, Segment} from 'semantic-ui-react';
-import { timeConvert, shortener } from './helpers';
+import { timeConvert, shortener, createDescription } from './helpers';
 
 export default function RecipeList(props) {
     // a list of recipes (inside a list)
@@ -12,11 +12,8 @@ export default function RecipeList(props) {
     const params = useParams()
     const id = params.id
     const location = useLocation()
-
-
-    
-    const prevPage = location
-    console.log(prevPage)
+    // const prevPage = location
+    // console.log(prevPage)
 
     const user = props.currentUser    
     
@@ -66,7 +63,6 @@ export default function RecipeList(props) {
     }
 
     list.recipes.sort((a, b) => b.id - a.id)
-    console.log(list);
 
     return (
         <Container>
@@ -99,7 +95,15 @@ export default function RecipeList(props) {
                         />
                         <Card.Content>
                             <Card.Header>{r.name}</Card.Header>
-                            <Card.Meta>{shortener(r.description, 118)}</Card.Meta>
+                            <Card.Meta>
+                                <p 
+                                    dangerouslySetInnerHTML={
+                                        createDescription(
+                                            shortener(r.description, 118)
+                                        )
+                                    }
+                                />
+                            </Card.Meta>
                         </Card.Content>
                         <Card.Content extra>
                             <Segment.Group horizontal>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { Breadcrumb, Button, Container, Divider, Grid, Header, Icon, Image, List, Segment } from 'semantic-ui-react';
-import { timeConvert } from '../helpers.js';
+import { timeConvert, createDescription } from '../helpers.js';
 
 function Recipe(props) {
 
@@ -68,7 +68,11 @@ function Recipe(props) {
             </Container>
             <Divider/>
             <Container text>
-                {recipe.description}
+                <p 
+                    dangerouslySetInnerHTML={
+                        createDescription(recipe.description)
+                    }
+                />
             </Container>
             <Segment.Group horizontal>
                 <Segment textAlign='center' size='large'>
@@ -85,20 +89,24 @@ function Recipe(props) {
                         <Header>
                             Ingredients
                         </Header>
-                        <List size='large' >
+                        <Grid>
                             {
                                 recipe.ingredients
                             ?
                                 recipe.ingredients.map((i, idx) => (
-                                    <List.Item key={idx} >
-                                        <Icon name='caret right'/>
-                                        {i}
-                                    </List.Item>
+                                    <Grid.Row key={idx} >
+                                        <Grid.Column width={1}>
+                                            <Icon name='caret right'/>
+                                        </Grid.Column>
+                                        <Grid.Column width={13}>
+                                            {i}
+                                        </Grid.Column>
+                                    </Grid.Row>
                                 ))
                             :
                                 <div/>
                             }
-                        </List>
+                        </Grid>
                         </Segment>
                     </Grid.Column>
                     <Grid.Column>
@@ -106,17 +114,24 @@ function Recipe(props) {
                         <Header>
                             Directions
                         </Header>
-                        <List size='large'>
+                        <Grid>
                         {
                                 recipe.steps
                             ?
                                 recipe.steps.map((s, idx) => (
-                                    <List.Item key={idx}><strong>{idx + 1}</strong> &nbsp; {s}</List.Item>
+                                    <Grid.Row key={idx}>
+                                        <Grid.Column width={1}>
+                                            <strong>{idx + 1}</strong>
+                                        </Grid.Column>
+                                        <Grid.Column width={12}>
+                                            {s}
+                                        </Grid.Column>
+                                    </Grid.Row>
                                 ))
                             :
                                 <div/>
                             }
-                        </List>
+                        </Grid>
                     </Segment>
                     </Grid.Column>
                 </Grid.Row>

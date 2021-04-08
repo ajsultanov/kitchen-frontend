@@ -18,7 +18,7 @@ export default function RecipeRow(props) {
         setActiveList(id)
     }
 
-    console.log(props.result)
+    // console.log(props.result)
 
     return (
         <Table.Row>
@@ -53,7 +53,7 @@ export default function RecipeRow(props) {
                 >
                     <Modal.Header>Select a list</Modal.Header>
                     <Modal.Content>
-                        <Menu text vertical>
+                        <Menu fluid vertical>
                             {props.user.lists.map(l => (
                                 <Menu.Item
                                     key={l.id}
@@ -74,7 +74,7 @@ export default function RecipeRow(props) {
                             onClick={() => {
                                 setOpen(false)
                                 props.saveRecipe(props.result, activeList)
-                                history.push(`/lists/${activeList}`)
+                                // history.push(`/lists/${activeList}`)
                             }}
                             positive
                         />
