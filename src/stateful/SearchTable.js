@@ -13,14 +13,14 @@ export default class SearchTable extends Component {
             submitted: false
         }
         this.handleChange = this.handleChange.bind(this)
-        this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleSubmitSearch = this.handleSubmitSearch.bind(this)
     }
 
     handleChange(e) {
         this.setState({searchTerm: e.target.value})
     }
 
-    handleSubmit(e) {
+    handleSubmitSearch(e) {
         console.log('Search term: ' + this.state.searchTerm);
         e.preventDefault()
 
@@ -50,12 +50,12 @@ export default class SearchTable extends Component {
                 <SearchBar 
                     searchTerm={this.state.searchTerm} 
                     onChange={this.handleChange} 
-                    onSubmit={this.handleSubmit}
+                    onSubmit={this.handleSubmitSearch}
                 />
                 {
                     this.state.submitted
                 ?
-                    <RecipeTable results={this.state.results}/>
+                    <RecipeTable results={this.state.results} user={this.props.currentUser}/>
                 :
                     <div/>    
                 }
@@ -67,8 +67,7 @@ export default class SearchTable extends Component {
                     </Segment>
                 :
                     <div/>
-                }
-                
+                } 
             </Grid>
         )
     }

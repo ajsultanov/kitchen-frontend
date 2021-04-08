@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import RecipeRow from './RecipeRow.js';
 import { Grid, Table } from 'semantic-ui-react';
 
 export default function RecipeTable(props) {
+
+    const [listId, setListId] = useState(null)
+
+    const saveRecipe = (id, list) => {
+        console.log(id, list)
+    }
+
     return (
         <Grid.Row>
             <Grid.Column width={14}>
@@ -19,7 +26,7 @@ export default function RecipeTable(props) {
                 <Table.Body>
                     {props.results.length > 0 ?
                         props.results.map((result, idx) => (
-                        <RecipeRow  key={idx} result={result}/>
+                        <RecipeRow key={idx} result={result} saveRecipe={saveRecipe} user={props.user}/>
                     )) :
                     <Table.Row><Table.Cell>No results for this search</Table.Cell></Table.Row>
                     }

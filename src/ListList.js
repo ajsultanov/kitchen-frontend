@@ -6,8 +6,7 @@ function ListList(props) {
     // a list of lists (inside profile)
 
     const lists = props.user.lists
-    lists.sort((a, b) => b.id - a.id)
-
+    
     if (lists === undefined) {
         return <div/>
     } else if (lists.length === 0) {
@@ -17,6 +16,7 @@ function ListList(props) {
             </Card.Group>
         )
     }
+    lists.sort((a, b) => b.id - a.id)
 
     return (
         <Container>
