@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Container, Divider, Header, Segment } from 'semantic-ui-react';
+import { Card, Container, Divider, Icon } from 'semantic-ui-react';
 import CreateList from './stateful/CreateList.js'
 
 function ListList(props) {
@@ -20,7 +20,6 @@ function ListList(props) {
 
     return (
         <Container>
-            <Header as='h2'>Lists:</Header>
             <Card.Group>
                 {lists.map(l => (
                     <Card 
@@ -32,7 +31,7 @@ function ListList(props) {
                                 {l.name}
                             </Card.Header>
                             <Card.Meta>
-                                Some meta data
+                                <Icon name='content'/> options button -&#62; edit -&#62; delete?
                             </Card.Meta>
                             <Card.Description>
                                 {l.description}
@@ -40,6 +39,7 @@ function ListList(props) {
                         </Card.Content>
                         <Card.Content>
                             number of recipes
+                            - why is this blue?
                         </Card.Content>
                     </Card>
                 ))}

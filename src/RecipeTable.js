@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { Grid, Table } from 'semantic-ui-react';
 import RecipeRow from './RecipeRow.js';

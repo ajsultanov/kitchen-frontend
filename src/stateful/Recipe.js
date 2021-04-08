@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useLocation, useParams } from 'react-router-dom';
-import { Breadcrumb, Button, Container, Divider, Grid, Header, Icon, Image, List, Segment } from 'semantic-ui-react';
+import { Link, useHistory, useLocation, useParams } from 'react-router-dom';
+import { Breadcrumb, Button, Container, Divider, Grid, Header, Icon, Image, Segment } from 'semantic-ui-react';
 import { timeConvert, createDescription } from '../helpers.js';
 
 function Recipe(props) {
-
     const [recipe, setRecipe] = useState(null)
     const params = useParams()
     const recipeId = params.id
@@ -12,7 +11,9 @@ function Recipe(props) {
     const prevPage = location.state.fromLocation.pathname
     const list = location.state.name
 
-    const fetchRecipe = () => {
+    const history = useHistory()
+
+    useEffect(() => {
         fetch(`http://localhost:3030/api/v1/recipes/${recipeId}`)
         .then(response => response.json())
         .then(data => {
@@ -28,17 +29,16 @@ function Recipe(props) {
                 url: data.url,
             })
         })
-    }
+    }, [recipeId])
 
-    useEffect(() => {
-        fetchRecipe()
-    }, [])
+    const handleOnClick = e => {
+        const name = e.target.name
+        history.push(`${name}/${recipe.id}`)
+    }
 
     if (recipe === null) {
         return <div/>
     }
-
-    console.log(recipe);
 
     return (
         <Container>
@@ -58,13 +58,12 @@ function Recipe(props) {
             <Divider/>
             <Container textAlign='center'>
                 <Image 
-                    // fluid
                     centered
                     size='medium' 
                     src='https://images.unsplash.com/photo-1572441713132-c542fc4fe282?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2200&q=80'
                     />
                 <Header>{recipe.name}</Header>
-                {/* <Button>Something</Button> */}
+                <p>&#60; rating &#62;</p>
             </Container>
             <Divider/>
             <Container text>
@@ -134,6 +133,13 @@ function Recipe(props) {
                         </Grid>
                     </Segment>
                     </Grid.Column>
+                </Grid.Row>
+            </Grid>
+            <Divider/>
+            <Grid textAlign='center'>
+                <Grid.Row>
+                    <Button content='Edit' name='edit' onClick={handleOnClick}/>
+                    <Button content='Delete' name='delete' onClick={handleOnClick}/>
                 </Grid.Row>
             </Grid>
         </Container>
