@@ -15,14 +15,16 @@ import {
 import { timeConvert, createDescription } from './helpers.js';
 
 function Recipe(props) {
+    console.log(props)
     const [recipe, setRecipe] = useState(null)
     const [open, setOpen] = useState(false)
     const params = useParams()
     const recipeId = params.id
     const location = useLocation()
+    console.log(location)
     const prevPage = location.state?.fromLocation?.pathname || '/'
-    const listName = location.state?.listName
     const listId = location.state?.listId
+    const listName = props.currentUser.lists.find(l => l.id === listId).name
     const history = useHistory()
 
     useEffect(() => {
@@ -56,11 +58,7 @@ function Recipe(props) {
 
     const deleteRecipe = () => {
         fetch(`http://localhost:3030/api/v1/recipes/${recipe.id}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            }
+            method: 'DELETE'
         })
         .then(resp => resp.json())
         .then(data => console.log(data))
@@ -79,7 +77,7 @@ function Recipe(props) {
                     Home
                 </Breadcrumb.Section>
                 <Breadcrumb.Divider />
-                <Breadcrumb.Section as={Link} to={prevPage}>
+                <Breadcrumb.Section as={Link} to={`/lists/${listId}`}>
                     {listName}
                 </Breadcrumb.Section>
                 <Breadcrumb.Divider />

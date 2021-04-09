@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Card, Container, Divider, Icon } from 'semantic-ui-react';
 import CreateList from './CreateList.js'
@@ -6,9 +6,9 @@ import CreateList from './CreateList.js'
 function ListList(props) {
     // a list of lists (inside profile)
 
+
     const history = useHistory()
-    const lists = props.user.lists
-    const setCurrentList = props.setCurrentList
+    const lists = props.currentUser.lists
     
     if (lists === undefined) {
         return <div/>
@@ -21,25 +21,27 @@ function ListList(props) {
     }
     lists.sort((a, b) => b.id - a.id)
 
-    const handleOnClick = (e, listId) => {
-        setCurrentList(listId)
-        history.push(`lists/${listId}`)
+    const handleOnClick = (e, list) => {
+        history.push(`lists/${list.id}`)
     }
 
     return (
         <Container>
             <Card.Group>
-                {lists.map(l => (
-                    <Card key={l.id} onClick={e => handleOnClick(e, l.id)}>
+                {lists.map(list => (
+                    <Card 
+                        key={list.id}
+                        onClick={e => handleOnClick(e, list)}
+                    >
                         <Card.Content>
                             <Card.Header>
-                                {l.name}
+                                {list.name}
                             </Card.Header>
                             <Card.Meta>
                                 <Icon name='content'/> options button -&#62; edit -&#62; delete?
                             </Card.Meta>
                             <Card.Description>
-                                {l.description}
+                                {list.description}
                             </Card.Description>
                         </Card.Content>
                         <Card.Content>
@@ -50,7 +52,7 @@ function ListList(props) {
                 ))}
             </Card.Group>
             <Divider/>
-            <CreateList userId={props.user.id}/>
+            <CreateList userId={props.currentUser.id}/>
         </Container>
     )
 }

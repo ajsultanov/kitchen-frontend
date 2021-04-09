@@ -3,13 +3,11 @@ import { Container, Header } from 'semantic-ui-react';
 import ListList from './ListList.js';
 
 function Profile(props) {
-    const user = props.currentUser
-    const setCurrentList = props.setCurrentList
-
+    console.log(props);
     return (
         <Container>
             <Header as='h2'>My Lists:</Header>         
-            <ListList user={user} setCurrentList={setCurrentList}/>
+            <ListList currentUser={props.currentUser} setCurrentList={props.setCurrentList}/>
         </Container>
     )
 }

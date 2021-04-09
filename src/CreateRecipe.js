@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 import { 
     Button, 
     Container, 
@@ -20,6 +20,13 @@ function CreateRecipe(props) {
     const [listId, setListId] = useState(null)
 
     const history = useHistory()
+    const location = useLocation()
+
+    useEffect(() => {
+        if (location.state?.listId && !listId) {
+            setListId(location.state.listId)
+        }
+    }, [listId])
 
     if (props.currentUser === null) {
         return <div/>
@@ -67,7 +74,7 @@ function CreateRecipe(props) {
             body: JSON.stringify({
                 recipe: {
                     name,
-                    description,
+                    description: description,
                     author: '',
                     cook_time: cookTime,
                     servings,
@@ -115,6 +122,7 @@ function CreateRecipe(props) {
                             name="list"
                             placeholder="Select list"
                             options={droptions}
+                            value={listId}
                             onChange={(e, list) => setListId(list.value)}
                         />
                     </Form.Field>

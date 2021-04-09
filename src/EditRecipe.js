@@ -10,14 +10,13 @@ import {
 } from 'semantic-ui-react';
 
 function EditRecipe(props) {
-    
     const user = props.currentUser
 
     const history = useHistory()
     const location = useLocation()
     const recipe = location.state?.recipe
-    const idOfList = location.state?.listId
     const prevPage = location.state?.fromLocation
+    const idOfList = location.state?.listId
 
     const [name, setName] = useState(recipe.name)
     const [description, setDescription] = useState(recipe.description)
@@ -25,11 +24,13 @@ function EditRecipe(props) {
     const [servings, setServings] = useState(recipe.servings)
     const [ingredients, setIngredients] = useState(recipe.ingredients)
     const [steps, setSteps] = useState(recipe.steps)
-    const [listId, setListId] = useState(idOfList)
+    const [listId] = useState(idOfList)
+    const [newListId, setNewListId] = useState(idOfList)
+
 
     useEffect(() => {
         window.scrollTo(0, 0)
-      }, [])
+    }, [])
     
     if (props.currentUser === null) {
         return <div/>
@@ -84,7 +85,8 @@ function EditRecipe(props) {
                     steps: steps,
                     url: ''
                 },
-                list_id: listId
+                list_id: listId,
+                new_list_id: newListId
             })
         })
         .then(resp => resp.json())
@@ -97,10 +99,15 @@ function EditRecipe(props) {
         setIngredients([''])
         setSteps([''])
 
-        history.push('/recipes/' + recipe.id)
+        history.push({
+            pathname: `/recipes/${recipe.id}`,
+            state: {
+                listId: newListId,
+                listName: user.lists.find(l => l.id === newListId).name
+            }
+        })
     }
         
-    // console.log(props, params, location.state);
     return (
         <Container>
             <Form onSubmit={handleOnSubmit}>
@@ -125,8 +132,8 @@ function EditRecipe(props) {
                             name="list"
                             placeholder="Select list"
                             options={droptions}
-                            value={listId}
-                            onChange={(e, list) => setListId(list.value)}
+                            value={newListId}
+                            onChange={(e, list) => setNewListId(list.value)}
                         />
                     </Form.Field>
                 </Form.Group>

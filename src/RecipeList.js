@@ -11,22 +11,11 @@ export default function RecipeList(props) {
     const [list, setList] = useState(null)
     const params = useParams()
     const id = params.id
-    // const prevPage = location
-    // console.log(prevPage)
-
-    const user = props.currentUser    
+    const user = props.currentUser
     
     useEffect(() => {
         if (user && list === null) {
-
-            fetch(`${url}users/${user.id}/lists/${id}`, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                  }
-            })
-            // .then(res => res.text())
-            // .then(res => console.log(res))
+            fetch(`${url}users/${user.id}/lists/${id}`)
             .then(res => res.json())
             .then(data => {
                 if (data.errors) {
@@ -38,7 +27,7 @@ export default function RecipeList(props) {
         }
     })
 
-    if (list === null) {
+    if (!list) {
         return <div/>
     } else if (list.recipes.length === 0) {
         return (
@@ -54,7 +43,12 @@ export default function RecipeList(props) {
             </Breadcrumb>
                 <Header>{list.name}</Header>
                 No recipes yet! Why don't you&nbsp;
-                <Link to='/create-recipe'>
+                <Link to={{
+                    pathname: '/create-recipe',
+                    state: {
+                        listId: id
+                    }
+                }}>
                     create a new one...
                 </Link>
             </Container>
@@ -86,6 +80,20 @@ export default function RecipeList(props) {
                 {list.recipes.map(recipe => (
                     <RecipeCard key={recipe.id} list={list} recipe={recipe}/>
                 ))}
+                <Card 
+                    as={Link}
+                    color='purple'
+                    to={{
+                        pathname: '/create-recipe',
+                        state: {
+                            listId: id
+                        }
+                    }}
+                >
+                    <Card.Content>
+                        <Card.Header>Create a new recipe in this list</Card.Header>
+                    </Card.Content>
+                </Card>
             </Card.Group>
         </Container>
     )

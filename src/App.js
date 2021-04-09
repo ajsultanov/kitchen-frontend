@@ -14,8 +14,7 @@ import NoMatch from './NoMatch.js'
 function App() {
 
   const [currentUser, setCurrentUser] = useState(null)
-  const [currentList, setCurrentList] = useState(null)
-  const token = localStorage.getItem("user_token")
+  const token = localStorage.getItem('user_token')
 
   useEffect(() => {
     if(token) {
@@ -50,7 +49,7 @@ function App() {
         </Route>
         <Route exact path='/'>
           {currentUser ?
-            <Profile currentUser={currentUser} setCurrentList={setCurrentList}/> 
+            <Profile currentUser={currentUser}/> 
           :
             <Redirect to='/login'/>
           }
@@ -63,13 +62,13 @@ function App() {
         </Route>
 
         <Route path='/lists/:id'>
-          <RecipeList currentUser={currentUser} currentList={currentList}/>
+          <RecipeList currentUser={currentUser}/>
         </Route>
         <Route exact path='/recipes/:id'>
-          <Recipe currentUser={currentUser} currentList={currentList}/>
+          <Recipe currentUser={currentUser}/>
         </Route>
         <Route path='/recipes/:id/edit'>
-          <EditRecipe currentUser={currentUser} currentList={currentList}/>
+          <EditRecipe currentUser={currentUser}/>
         </Route>
 
         <Route component={NoMatch}/>
