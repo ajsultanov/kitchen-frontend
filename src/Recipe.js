@@ -1,16 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory, useLocation, useParams } from 'react-router-dom';
-import { Breadcrumb, Button, Container, Divider, Grid, Header, Icon, Image, Segment } from 'semantic-ui-react';
-import { timeConvert, createDescription } from '../helpers.js';
+import { 
+    Breadcrumb, 
+    Button, 
+    Container, 
+    Divider, 
+    Grid, 
+    Header, 
+    Icon, 
+    Image, 
+    Modal, 
+    Segment 
+} from 'semantic-ui-react';
+import { timeConvert, createDescription } from './helpers.js';
 
 function Recipe(props) {
     const [recipe, setRecipe] = useState(null)
+    const [open, setOpen] = useState(false)
     const params = useParams()
     const recipeId = params.id
     const location = useLocation()
-    const prevPage = location.state.fromLocation.pathname
-    const list = location.state.name
-
+    const prevPage = location.state?.fromLocation?.pathname || '/'
+    const listName = location.state?.listName
+    const listId = location.state?.listId
     const history = useHistory()
 
     useEffect(() => {
@@ -31,9 +43,29 @@ function Recipe(props) {
         })
     }, [recipeId])
 
-    const handleOnClick = e => {
-        const name = e.target.name
-        history.push(`${name}/${recipe.id}`)
+    const handleOnClickEdit = () => {
+        history.push({
+            pathname: `/recipes/${recipe.id}/edit`,
+            state: { 
+                fromLocation: location.pathname,
+                recipe: recipe,
+                listId: listId
+             }
+        })
+    }
+
+    const deleteRecipe = () => {
+        fetch(`http://localhost:3030/api/v1/recipes/${recipe.id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        })
+        .then(resp => resp.json())
+        .then(data => console.log(data))
+
+        history.push(`/lists/${listId}`)
     }
 
     if (recipe === null) {
@@ -48,7 +80,7 @@ function Recipe(props) {
                 </Breadcrumb.Section>
                 <Breadcrumb.Divider />
                 <Breadcrumb.Section as={Link} to={prevPage}>
-                    {list}
+                    {listName}
                 </Breadcrumb.Section>
                 <Breadcrumb.Divider />
                 <Breadcrumb.Section active>
@@ -138,8 +170,31 @@ function Recipe(props) {
             <Divider/>
             <Grid textAlign='center'>
                 <Grid.Row>
-                    <Button content='Edit' name='edit' onClick={handleOnClick}/>
-                    <Button content='Delete' name='delete' onClick={handleOnClick}/>
+                    <Button content='Edit' name='edit' onClick={handleOnClickEdit}/>
+
+                    <Modal
+                        closeIcon
+                        size='small'
+                        onClose={() => setOpen(false)}
+                        onOpen={() => setOpen(true)}
+                        open={open}
+                        trigger={<Button>Delete</Button>}
+                    >
+                        <Modal.Header>Are you sure you want to delete this recipe?</Modal.Header>
+                        <Modal.Actions>
+                            <Button onClick={() => setOpen(false)}>
+                                Cancel
+                            </Button>
+                            <Button
+                                content="Yes, delete it"
+                                onClick={() => {
+                                    setOpen(false)
+                                    deleteRecipe()
+                                }}
+                                negative
+                            />
+                        </Modal.Actions>
+                    </Modal>
                 </Grid.Row>
             </Grid>
         </Container>

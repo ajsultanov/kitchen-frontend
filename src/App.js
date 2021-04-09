@@ -3,16 +3,18 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import AppMenu from './AppMenu.js';
 import Login from './Login.js';
-import Profile from './stateful/Profile.js';
-import SearchTable from './stateful/SearchTable.js';
-import CreateRecipe from './stateful/CreateRecipe.js';
+import Profile from './Profile.js';
+import SearchTable from './SearchTable.js';
+import CreateRecipe from './CreateRecipe.js';
+import EditRecipe from './EditRecipe.js';
 import RecipeList from './RecipeList.js'
-import Recipe from './stateful/Recipe.js'
+import Recipe from './Recipe.js'
 import NoMatch from './NoMatch.js'
 
 function App() {
 
   const [currentUser, setCurrentUser] = useState(null)
+  const [currentList, setCurrentList] = useState(null)
   const token = localStorage.getItem("user_token")
 
   useEffect(() => {
@@ -48,7 +50,7 @@ function App() {
         </Route>
         <Route exact path='/'>
           {currentUser ?
-            <Profile currentUser={currentUser}/> 
+            <Profile currentUser={currentUser} setCurrentList={setCurrentList}/> 
           :
             <Redirect to='/login'/>
           }
@@ -61,10 +63,13 @@ function App() {
         </Route>
 
         <Route path='/lists/:id'>
-          <RecipeList currentUser={currentUser}/>
+          <RecipeList currentUser={currentUser} currentList={currentList}/>
         </Route>
-        <Route path='/recipes/:id'>
-          <Recipe currentUser={currentUser}/>
+        <Route exact path='/recipes/:id'>
+          <Recipe currentUser={currentUser} currentList={currentList}/>
+        </Route>
+        <Route path='/recipes/:id/edit'>
+          <EditRecipe currentUser={currentUser} currentList={currentList}/>
         </Route>
 
         <Route component={NoMatch}/>

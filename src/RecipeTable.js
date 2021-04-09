@@ -5,11 +5,9 @@ import RecipeRow from './RecipeRow.js';
 
 export default function RecipeTable(props) {
 
-    // const [listId, setListId] = useState(null)
     const history = useHistory()
 
     const saveRecipe = (recipe, listId) => {
-
         fetch(`http://localhost:3030/api/v1/get_info/${recipe.id}`, {
             headers: {
                 'Content-Type': 'application/json',
@@ -57,11 +55,16 @@ export default function RecipeTable(props) {
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>
-                    {props.results.length > 0 ?
+                    {
+                        props.results.length > 0 
+                    ?
                         props.results.map((result, idx) => (
-                        <RecipeRow key={idx} result={result} saveRecipe={saveRecipe} user={props.user}/>
-                    )) :
-                    <Table.Row><Table.Cell>No results for this search</Table.Cell></Table.Row>
+                            <RecipeRow key={idx} result={result} saveRecipe={saveRecipe} user={props.user}/>
+                        )) 
+                    :
+                        <Table.Row>
+                            <Table.Cell>No results for this search</Table.Cell>
+                        </Table.Row>
                     }
                 </Table.Body>
             </Table>

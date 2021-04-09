@@ -13,8 +13,9 @@ function RecipeCard(props) {
                 pathname: `/recipes/${recipe.id}`,
                 state: { 
                     fromLocation: location,
-                    name: props.list.name
-                    }
+                    listName: props.list.name,
+                    listId: props.list.id
+                }
             }}
         >
             <Image 

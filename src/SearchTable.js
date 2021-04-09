@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Grid, Segment } from 'semantic-ui-react';
-import SearchBar from '../SearchBar.js';
-import RecipeTable from '../RecipeTable.js'
+import SearchBar from './SearchBar.js';
+import RecipeTable from './RecipeTable.js'
 
 export default class SearchTable extends Component {
     constructor () {

@@ -1,6 +1,13 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Button, Container, Dropdown, Form, Icon } from 'semantic-ui-react';
+import { 
+    Button, 
+    Container, 
+    Dropdown, 
+    Form, 
+    Grid, 
+    Icon 
+} from 'semantic-ui-react';
 
 function CreateRecipe(props) {
     
@@ -208,9 +215,20 @@ function CreateRecipe(props) {
                     when its fromLocation is createrecipe?
                 */}
 
-                <Button size="large" type="submit" color="teal">
-                    Create Recipe
-                </Button>
+                <Grid textAlign='center'>
+                    <Grid.Row>
+                        <Button 
+                            size='large' 
+                            type='button' 
+                            onClick={() => history.push('/')}
+                        >
+                            Cancel
+                        </Button>
+                        <Button size='large' type='submit' color='teal'>
+                            Create
+                        </Button>
+                    </Grid.Row>
+                </Grid>
             </Form>
         </Container>
     )
