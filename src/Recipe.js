@@ -168,7 +168,7 @@ function Recipe(props) {
             <Divider/>
             <Grid textAlign='center'>
                 <Grid.Row>
-                    <Button content='Edit' name='edit' onClick={handleOnClickEdit}/>
+                    <Button content='Edit Recipe' name='edit' onClick={handleOnClickEdit}/>
 
                     <Modal
                         closeIcon

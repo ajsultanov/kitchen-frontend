@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Form, Grid, Input } from 'semantic-ui-react';
 
-export default function SearchBar(props) {
+function SearchBar(props) {
+
+    const [ready, setReady] = useState(false)
 
     return (
         <Grid.Column width={8}>
@@ -11,14 +13,23 @@ export default function SearchBar(props) {
                     <Input 
                         icon='search'
                         type='text' 
-                        size='big' 
+                        size='big'
                         value={props.searchTerm} 
-                        onChange={props.onChange} 
+                        onChange={e => {
+                            if (e.target.value) {
+                                setReady(true)
+                            } else {
+                                setReady(false)
+                            }
+                            props.onChange(e)
+                        }}
                         placeholder='Search by keyword or ingredient...'
                     />
                 </Form.Field>
-                <Form.Field type='submit' fluid control={Button}>Search for Recipes</Form.Field>
+                <Form.Field type='submit' fluid positive={ready} control={Button}>Search for Recipes</Form.Field>
             </Form>
         </Grid.Column>
     )
 }
+
+export default SearchBar;

@@ -26,6 +26,10 @@ export default class SearchTable extends Component {
 
         // this submit can come from the search bar, or adding a recipe
         
+        if (this.state.searchTerm === '') {
+            window.alert("Please fill out search term")
+            return
+        }
 
         fetch(`http://localhost:3030/api/v1/search/${this.state.searchTerm}`, {
             method: 'GET',
