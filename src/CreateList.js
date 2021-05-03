@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Button, Form, Header } from 'semantic-ui-react';
+import { Button, Form, Header, TextArea } from 'semantic-ui-react';
 
 function CreateList(props) {
 
@@ -44,7 +44,7 @@ function CreateList(props) {
                     />
             </Form.Field>
             <Form.Field>
-                <Form.Input
+                <TextArea
                     label='Description'
                     placeholder='List description'
                     value={description}

@@ -10,7 +10,8 @@ import {
     Grid, 
     Header, 
     Input, 
-    Modal 
+    Modal,
+    TextArea
 } from 'semantic-ui-react';
 import RecipeCard from './RecipeCard.js';
 
@@ -22,6 +23,8 @@ export default function RecipeList(props) {
     const [list, setList] = useState(null)
     const [openEdit, setOpenEdit] = useState(false)
     const [openDelete, setOpenDelete] = useState(false)
+    const [name, setName] = useState('')
+    const [description, setDescription] = useState('')
     const params = useParams()
     const history = useHistory()
     const id = params.id
@@ -36,12 +39,36 @@ export default function RecipeList(props) {
                     alert(data.errors)
                 } else {
                     setList(data)
+                    setName(data.name)
+                    setDescription(data.description)
                 }
             })
         }
     })
 
-    const handleOnClickEdit = () => {}
+    const handleOnClickEdit = () => {
+        // some validation
+
+        console.log('you clicked shave canges')
+
+        fetch(`http://localhost:3030/api/v1/users/${props.userId}/lists/${list.id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                list: {
+                    name,
+                    description
+                }
+            })
+        })
+        .then(resp => resp.json())
+        .then(data => console.log(data))
+
+        history.go(0)
+    }
    
     const deleteList = () => {
         fetch(`http://localhost:3030/api/v1/users/${user.id}/lists/${id}`, {
@@ -122,19 +149,35 @@ export default function RecipeList(props) {
                         open={openEdit}
                         trigger={<Button>Edit List</Button>}
                     >
-                        <Modal.Header>Edit list</Modal.Header>
+                        <Modal.Header>Edit List</Modal.Header>
                         <Modal.Content>
                             <Form>
-                                <Form.Field label='list name'>
-                                    <Input/>
+                                <Form.Field>
+                                    <Form.Input
+                                        label='Name'
+                                        placeholder="List name"
+                                        value={name}
+                                        onChange={e => setName(e.target.value)}
+                                        />
+                                </Form.Field>
+                                <Form.Field>
+                                    <TextArea
+                                        label='Description'
+                                        placeholder='List description'
+                                        value={description}
+                                        onChange={e => setDescription(e.target.value)}
+                                        />
                                 </Form.Field>
                             </Form>
                         </Modal.Content>
                         <Modal.Actions>
-                            <Button onClick={() => setOpenEdit(false)}>
+                            <Button onClick={() => setOpenEdit(false)}
+                                // need to change if state variables return to original when modal closed
+                                // else they will stay edited
+                            >
                                 Cancel
                             </Button>
-                           <Button onCluck={handleOnClickEdit} content='ok'/>
+                           <Button onClick={handleOnClickEdit} content='Save Changes'/>
                         </Modal.Actions>
                     </Modal>
 

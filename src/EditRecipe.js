@@ -106,6 +106,8 @@ function EditRecipe(props) {
                 listName: user.lists.find(l => l.id === newListId).name
             }
         })
+
+        // history.go(0)
     }
         
     return (

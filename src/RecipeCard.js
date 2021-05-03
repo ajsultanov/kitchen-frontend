@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Card, Icon, Image, Segment} from 'semantic-ui-react';
+import { Card, Icon, Image, Rating, Segment} from 'semantic-ui-react';
 import { timeConvert, shortener, createDescription } from './helpers';
 
 function RecipeCard(props) {
@@ -25,7 +25,8 @@ function RecipeCard(props) {
             <Card.Content>
                 <Card.Header>
                     {recipe.name}
-                    <p>&#60; rating &#62;</p>
+                    &nbsp;
+                    <Rating icon='star' defaultRating={3} maxRating={5}/>
                 </Card.Header>
                 <Card.Meta>
                     <p 

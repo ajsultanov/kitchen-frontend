@@ -1,3 +1,27 @@
+
+# To Do
+- Edit List modal
+- Accordion to open the list creation panel
+- Refresh page on list/rec create/deletion to reflect change
+- Make a more interesting README
+- Add TESTS
+- Add length attribute to lists
+- Search results pagination
+- More fun splash page
+- Convert all components to functional, state to hooks
+- Add creation date attribute to recipe serializer
+
+- Add validations on front end
+- Retrieve images for recipes/allow users to upload images
+- Add recipe ratings
+- Option to create a new list when creating a new recipe: modal?
+- Add recipe tags
+- Edit servings to change recipe amounts
+- A11Y
+- Email or social integration?
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

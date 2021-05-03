@@ -32,6 +32,7 @@ function CreateRecipe(props) {
         return <div/>
     }
     const user = props.currentUser
+    console.log(user)
     const droptions = user.lists.map(l => (
         {
             key: l.id,
