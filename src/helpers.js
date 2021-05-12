@@ -1,5 +1,9 @@
 
 function timeConvert(minutes) {
+    if (!minutes) {
+        return "-"
+    }
+
     const hours = minutes / 60 > 2 ? " hours " : " hour "
     const mins = minutes % 60 !== 0 ? minutes % 60 + " mins" : ""
     if (minutes > 59) {

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, Image, Menu, Modal, Table } from 'semantic-ui-react';
 import { timeConvert, shortener } from './helpers.js'
 
-export default function RecipeRow(props) {
+function RecipeRow(props) {
 
     const [open, setOpen] = useState(false)
     const [activeList, setActiveList] = useState(null)
@@ -79,3 +79,5 @@ export default function RecipeRow(props) {
         </Table.Row>
     )
 }
+
+export default RecipeRow;

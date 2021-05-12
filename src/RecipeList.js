@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useHistory, useParams } from 'react-router-dom';
+import { Link, useHistory, useLocation, useParams } from 'react-router-dom';
 import { 
     Breadcrumb, 
     Button, 
@@ -14,8 +14,8 @@ import {
 } from 'semantic-ui-react';
 import RecipeCard from './RecipeCard.js';
 
-export default function RecipeList(props) {
-    // a list of recipes (inside a list)
+function RecipeList(props) {
+// a list of recipes (inside a list)
 
     const url = process.env.REACT_APP_URL
 
@@ -26,9 +26,12 @@ export default function RecipeList(props) {
     const [description, setDescription] = useState('')
     const params = useParams()
     const history = useHistory()
+    const location = useLocation()
     const id = params.id
     const user = props.currentUser
-    
+
+    // want to rerender when recipe added from search...
+
     useEffect(() => {
         if (user && list === null) {
             fetch(`${url}users/${user.id}/lists/${id}`)
@@ -43,7 +46,7 @@ export default function RecipeList(props) {
                 }
             })
         }
-    })
+    }, [user, list])
 
     const handleOnClickEdit = () => {
         // some validation
@@ -73,13 +76,7 @@ export default function RecipeList(props) {
         })
         .then(resp => resp.json())
         .then(data => console.log(data))
-
-        history.push({
-            pathname: '/',
-            state: { 
-                deleted: name
-             }
-        })
+        .then(() => history.push('/'))
     }
 
     if (!list) {
@@ -212,5 +209,4 @@ export default function RecipeList(props) {
     )
 }
 
-
-
+export default RecipeList;

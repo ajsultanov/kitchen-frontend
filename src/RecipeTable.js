@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { Grid, Table } from 'semantic-ui-react';
 import RecipeRow from './RecipeRow.js';
 
-export default function RecipeTable(props) {
+function RecipeTable(props) {
 
     const history = useHistory()
 
@@ -37,8 +37,7 @@ export default function RecipeTable(props) {
                 })
             })
         })
-
-        history.push('/lists/' + listId)
+        .then(() => history.push(`/lists/${listId}`))
     }
 
     return (
@@ -72,3 +71,5 @@ export default function RecipeTable(props) {
         </Grid.Row>
     )
 }
+
+export default RecipeTable;

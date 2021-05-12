@@ -28,6 +28,7 @@ function Recipe(props) {
         fetch(`http://localhost:3030/api/v1/recipes/${recipeId}`)
         .then(response => response.json())
         .then(data => {
+            console.log(data)
             setRecipe({
                 author: data.author,
                 cook_time: data.cook_time,
@@ -59,8 +60,7 @@ function Recipe(props) {
         })
         .then(resp => resp.json())
         .then(data => console.log(data))
-
-        history.push(`/lists/${listId}`)
+        .then(() => history.push(`/lists/${listId}`))
     }
 
     if (recipe === null || user === null) {

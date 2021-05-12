@@ -1,6 +1,11 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
+import { 
+  BrowserRouter as Router, 
+  Redirect, 
+  Route, 
+  Switch
+} from 'react-router-dom';
 import AppMenu from './AppMenu.js';
 import Login from './Login.js';
 import Profile from './Profile.js';
@@ -17,7 +22,6 @@ function App() {
   const token = localStorage.getItem('user_token')
 
   useEffect(() => {
-
     if(token) {
       fetch("http://localhost:3030/api/v1/auto_login", {
         headers: {

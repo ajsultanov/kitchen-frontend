@@ -7,7 +7,10 @@ function Profile(props) {
     return (
         <Container>
             <Header as='h2'>My Lists:</Header>         
-            <ListList currentUser={props.currentUser} setCurrentList={props.setCurrentList}/>
+            <ListList 
+                currentUser={props.currentUser} 
+                setCurrentList={props.setCurrentList}
+            />
             <Divider/>
             <CreateList userId={props.currentUser.id}/>
         </Container>

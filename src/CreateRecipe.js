@@ -29,7 +29,7 @@ function CreateRecipe(props) {
             setListId(+location.state.listId)
             setPrevPage(`/lists/${+location.state.listId}`)
         }
-    }, [location.state.listId, listId])
+    }, [location?.state?.listId, listId])
 
     if (props.currentUser === null) {
         return <div/>
@@ -76,6 +76,15 @@ function CreateRecipe(props) {
         setSteps(newSteps)
     }
 
+    const clearAll = () => {
+        setName('')
+        setDescription('')
+        setCookTime('')
+        setServings('')
+        setIngredients([''])
+        setSteps([''])
+    }
+
     const handleOnSubmit = event => {
         // some validations
 
@@ -101,15 +110,10 @@ function CreateRecipe(props) {
         })
         .then(resp => resp.json())
         .then(data => console.log(data))
-
-        setName('')
-        setDescription('')
-        setCookTime('')
-        setServings('')
-        setIngredients([''])
-        setSteps([''])
-
-        history.push('/lists/' + listId)
+        .then(() => {
+            clearAll()
+            history.push(`/lists/${listId}`)
+        })
     }
 
     return (
@@ -255,6 +259,5 @@ function CreateRecipe(props) {
         </Container>
     )
 }
-
 
 export default CreateRecipe;

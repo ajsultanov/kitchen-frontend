@@ -17,7 +17,7 @@ function ListCard(props) {
                 </Card.Description>
             </Card.Content>
             <Card.Content>
-                number of recipes
+                {list.length} recipes
             </Card.Content>
         </Card>
     )
