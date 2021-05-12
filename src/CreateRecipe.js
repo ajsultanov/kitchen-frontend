@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import { 
     Button, 
     Container, 
     Dropdown, 
     Form, 
     Grid, 
-    Icon 
+    Header,
+    Icon
 } from 'semantic-ui-react';
 
 function CreateRecipe(props) {
@@ -18,21 +19,33 @@ function CreateRecipe(props) {
     const [ingredients, setIngredients] = useState([''])
     const [steps, setSteps] = useState([''])
     const [listId, setListId] = useState(null)
+    const [prevPage, setPrevPage] = useState('/')
 
     const history = useHistory()
     const location = useLocation()
 
     useEffect(() => {
         if (location.state?.listId && !listId) {
-            setListId(location.state.listId)
+            setListId(+location.state.listId)
+            setPrevPage(`/lists/${+location.state.listId}`)
         }
-    }, [listId])
+    }, [location.state.listId, listId])
 
     if (props.currentUser === null) {
         return <div/>
     }
     const user = props.currentUser
-    console.log(user)
+    if (!user.lists) {
+        return (
+            <Container>
+                No lists found!
+                <Header as='h3'><Link to='/'>
+                    Create a List to Put Recipes In
+                </Link></Header>
+            </Container>
+        )
+    }
+
     const droptions = user.lists.map(l => (
         {
             key: l.id,
@@ -229,7 +242,7 @@ function CreateRecipe(props) {
                         <Button 
                             size='large' 
                             type='button' 
-                            onClick={() => history.push('/')}
+                            onClick={() => history.push(prevPage)}
                         >
                             Cancel
                         </Button>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useHistory, useParams } from 'react-router-dom';
 import { 
     Breadcrumb, 
@@ -9,7 +9,6 @@ import {
     Form, 
     Grid, 
     Header, 
-    Input, 
     Modal,
     TextArea
 } from 'semantic-ui-react';
@@ -49,8 +48,6 @@ export default function RecipeList(props) {
     const handleOnClickEdit = () => {
         // some validation
 
-        console.log('you clicked shave canges')
-
         fetch(`http://localhost:3030/api/v1/users/${props.userId}/lists/${list.id}`, {
             method: 'PATCH',
             headers: {
@@ -77,7 +74,12 @@ export default function RecipeList(props) {
         .then(resp => resp.json())
         .then(data => console.log(data))
 
-        history.push('/')
+        history.push({
+            pathname: '/',
+            state: { 
+                deleted: name
+             }
+        })
     }
 
     if (!list) {

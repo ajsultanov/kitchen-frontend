@@ -241,7 +241,12 @@ function EditRecipe(props) {
                         <Button 
                             size='large' 
                             type='button' 
-                            onClick={() => history.push(prevPage)}
+                            onClick={() => history.push({
+                                pathname: prevPage,
+                                state: { 
+                                    listId: listId
+                                 }})
+                            }
                         >
                             Cancel
                         </Button>

@@ -15,16 +15,13 @@ import {
 import { timeConvert, createDescription } from './helpers.js';
 
 function Recipe(props) {
-    console.log(props)
     const [recipe, setRecipe] = useState(null)
     const [open, setOpen] = useState(false)
+    const location = useLocation()
+    const [listId] = useState(location.state?.listId)
     const params = useParams()
     const recipeId = params.id
-    const location = useLocation()
-    console.log(location)
-    const prevPage = location.state?.fromLocation?.pathname || '/'
-    const listId = location.state?.listId
-    const listName = props.currentUser.lists.find(l => l.id === listId).name
+    const user = props.currentUser
     const history = useHistory()
 
     useEffect(() => {
@@ -66,9 +63,10 @@ function Recipe(props) {
         history.push(`/lists/${listId}`)
     }
 
-    if (recipe === null) {
+    if (recipe === null || user === null) {
         return <div/>
     }
+    const listName = user.lists.find(l => l.id === listId).name
 
     return (
         <Container>

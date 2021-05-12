@@ -15,8 +15,6 @@ export default function RecipeRow(props) {
         setActiveList(id)
     }
 
-    // console.log(props.result)
-
     return (
         <Table.Row>
             <Table.Cell>

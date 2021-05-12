@@ -17,6 +17,7 @@ function App() {
   const token = localStorage.getItem('user_token')
 
   useEffect(() => {
+
     if(token) {
       fetch("http://localhost:3030/api/v1/auto_login", {
         headers: {

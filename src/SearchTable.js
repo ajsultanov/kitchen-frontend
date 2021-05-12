@@ -21,7 +21,6 @@ export default class SearchTable extends Component {
     }
 
     handleSubmitSearch(e) {
-        console.log('Search term: ' + this.state.searchTerm);
         e.preventDefault()
 
         // this submit can come from the search bar, or adding a recipe
