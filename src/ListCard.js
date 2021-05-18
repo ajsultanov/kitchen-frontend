@@ -17,7 +17,13 @@ function ListCard(props) {
                 </Card.Description>
             </Card.Content>
             <Card.Content>
-                {list.length} recipes
+                { 
+                    list.length === 1
+                ?
+                    list.length + " recipe"
+                :
+                    list.length + " recipes"
+                }
             </Card.Content>
         </Card>
     )

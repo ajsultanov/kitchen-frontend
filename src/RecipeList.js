@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useHistory, useLocation, useParams } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 import { 
     Breadcrumb, 
     Button, 
@@ -26,7 +26,6 @@ function RecipeList(props) {
     const [description, setDescription] = useState('')
     const params = useParams()
     const history = useHistory()
-    const location = useLocation()
     const id = params.id
     const user = props.currentUser
 
@@ -46,7 +45,7 @@ function RecipeList(props) {
                 }
             })
         }
-    }, [user, list])
+    }, [user, list, url, id])
 
     const handleOnClickEdit = () => {
         // some validation
