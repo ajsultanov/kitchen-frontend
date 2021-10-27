@@ -81,8 +81,8 @@ function EditRecipe(props) {
                     author: '',
                     cook_time: cookTime,
                     servings,
-                    ingredients: ingredients,
-                    steps: steps,
+                    ingredients,
+                    steps,
                     url: ''
                 },
                 list_id: listId,
@@ -144,7 +144,7 @@ function EditRecipe(props) {
                         placeholder="Enter recipe description"
                         label="Recipe Description"
                         type="text"
-                        value={description}
+                        value={description || ''}
                         onChange={(e) => setDescription(e.target.value)}
                     />
                 </Form.Field>
@@ -155,7 +155,7 @@ function EditRecipe(props) {
                         placeholder="Enter cooking time in minutes"
                         label="Cooking Time"
                         type="number"
-                        value={cookTime}
+                        value={cookTime || ''}
                         onChange={(e) => setCookTime(e.target.value)}
                     />
                     <Form.Input
@@ -164,7 +164,7 @@ function EditRecipe(props) {
                         placeholder="Enter number of servings"
                         label="Servings"
                         type="number"
-                        value={servings}
+                        value={servings || ''}
                         onChange={(e) => setServings(e.target.value)}
                     />                    
                 </Form.Group>

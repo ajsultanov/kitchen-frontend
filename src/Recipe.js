@@ -28,7 +28,7 @@ function Recipe(props) {
         fetch(`http://localhost:3030/api/v1/recipes/${recipeId}`)
         .then(response => response.json())
         .then(data => {
-            console.log(data)
+            // console.log(data)
             setRecipe({
                 author: data.author,
                 cook_time: data.cook_time,

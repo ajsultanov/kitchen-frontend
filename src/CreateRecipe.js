@@ -97,12 +97,12 @@ function CreateRecipe(props) {
             body: JSON.stringify({
                 recipe: {
                     name,
-                    description: description,
+                    description,
                     author: '',
                     cook_time: cookTime,
                     servings,
-                    ingredients: ingredients,
-                    steps: steps,
+                    ingredients,
+                    steps,
                     url: ''
                 },
                 list_id: listId

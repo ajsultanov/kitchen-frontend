@@ -8,8 +8,7 @@ function Profile(props) {
         <Container>
             <Header as='h2'>My Lists:</Header>         
             <ListList 
-                currentUser={props.currentUser} 
-                setCurrentList={props.setCurrentList}
+                currentUser={props.currentUser}
             />
             <Divider/>
             <CreateList userId={props.currentUser.id}/>

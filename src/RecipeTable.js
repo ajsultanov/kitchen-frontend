@@ -37,7 +37,10 @@ function RecipeTable(props) {
                 })
             })
         })
-        .then(() => history.push(`/lists/${listId}`))
+        .then(() => {
+            history.push(`/lists/${listId}`)
+            history.go(0)
+        })
     }
 
     return (

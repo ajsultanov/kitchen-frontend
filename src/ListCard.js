@@ -1,6 +1,7 @@
 import { Card } from 'semantic-ui-react';
 
 function ListCard(props) {
+    // console.log(props);
 
     const list = props.list
 
